@@ -115,6 +115,9 @@ export default function Header() {
           <Link href="/#fares" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
             Fares
           </Link>
+          <Link href="/blog" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            Blog
+          </Link>
           <Link href="/about-us" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
             About
           </Link>
@@ -202,6 +205,10 @@ export default function Header() {
               <Link href="/#fleet" onClick={() => setMenuOpen(false)}
                 className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
                 Fleet
+              </Link>
+              <Link href="/blog" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                Blog
               </Link>
               <Link href="/about-us" onClick={() => setMenuOpen(false)}
                 className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
