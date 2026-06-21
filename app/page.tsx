@@ -1,7 +1,6 @@
 import Hero from '@/components/home/Hero'
 import TrustStrip from '@/components/home/TrustStrip'
 import Fares from '@/components/home/Fares'
-import ExecutiveBand from '@/components/home/ExecutiveBand'
 import WhyUs from '@/components/home/WhyUs'
 import Fleet from '@/components/home/Fleet'
 import Reviews from '@/components/home/Reviews'
@@ -17,7 +16,6 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <Fares />
-      <ExecutiveBand />
       <WhyUs />
       <Fleet />
       <Reviews />

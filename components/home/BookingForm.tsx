@@ -269,9 +269,9 @@ export default function BookingForm() {
                 {[
                   { icon: <CheckIcon />, title: 'Fixed price guaranteed', sub: 'Confirmed before you travel. Zero surprises.' },
                   { icon: <CheckIcon />, title: 'Flight tracking', sub: 'We monitor your flight and adjust pickup automatically.' },
-                  { icon: <CheckIcon />, title: 'Meet & Greet', sub: 'Driver in arrivals with a name board.' },
                   { icon: <CheckIcon />, title: '24/7 availability', sub: 'Early mornings, late nights, bank holidays.' },
                   { icon: <CheckIcon />, title: 'Licensed & insured', sub: 'PHV Licence 25232 · Leeds City Council.' },
+                  { icon: <CheckIcon />, title: 'Company No. 16758874', sub: 'Ridecore Travel Ltd — registered in England & Wales.' },
                 ].map(item => (
                   <div key={item.title} className="flex gap-3.5 items-start">
                     <span className="text-gold mt-0.5 flex-shrink-0">{item.icon}</span>

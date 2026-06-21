@@ -1,23 +1,15 @@
 export interface RoutePrice {
   route: string
   slug: string
-  single14: number
-  return14: number
-  single58: number
-  return58: number
+  minibus8: number  // 8-Seater Minibus
+  car4: number      // 4-Seater Vehicle
 }
 
 export const routes: RoutePrice[] = [
-  { route: 'Leeds Bradford Airport (LBA)', slug: 'lba', single14: 40, return14: 75, single58: 50, return58: 95 },
-  { route: 'Manchester Airport', slug: 'manchester', single14: 120, return14: 230, single58: 130, return58: 250 },
-  { route: 'Liverpool Airport', slug: 'liverpool', single14: 120, return14: 230, single58: 140, return58: 270 },
-  { route: 'London Heathrow', slug: 'heathrow', single14: 400, return14: 770, single58: 450, return58: 870 },
+  { route: 'Leeds City Centre → Manchester Airport',       slug: 'manchester', minibus8: 135, car4: 100 },
+  { route: 'Leeds City Centre → Leeds Bradford Airport',   slug: 'lba',        minibus8: 60,  car4: 35  },
+  { route: 'Leeds City Centre → London Heathrow Airport',  slug: 'heathrow',   minibus8: 420, car4: 320 },
+  { route: 'Leeds City Centre → Liverpool Airport',        slug: 'liverpool',  minibus8: 160, car4: 120 },
 ]
 
-export const executiveOffer = {
-  title: 'Same-Day Leeds → London Return',
-  price: 700,
-  note: 'Includes 8 hours complimentary waiting',
-}
-
-export const pricesNote = 'Prices may vary depending on pickup location.'
+export const pricesNote = 'Prices may vary for pickups outside Leeds City Centre.'

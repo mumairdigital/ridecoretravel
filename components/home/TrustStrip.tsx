@@ -13,7 +13,7 @@ const items = [
   },
   {
     icon: <MeetIcon />,
-    label: 'Meet & Greet Available',
+    label: 'Ridecore Travel Ltd · Co. 16758874',
   },
 ]
 
