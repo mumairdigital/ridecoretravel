@@ -38,7 +38,10 @@ export default function ScrollToTop() {
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
-      {/* Progress ring SVG — sits on top, anchored by button size */}
+      {/* Background circle — renders first (bottom layer) */}
+      <div className="absolute inset-0 rounded-full bg-charcoal/90 backdrop-blur-sm shadow-lg" />
+
+      {/* Progress ring SVG — on top of background, behind arrow */}
       <svg
         width={size}
         height={size}
@@ -69,8 +72,8 @@ export default function ScrollToTop() {
         />
       </svg>
 
-      {/* Inner circle */}
-      <div className="absolute inset-0 rounded-full bg-charcoal/90 backdrop-blur-sm flex items-center justify-center hover:bg-graphite transition-colors shadow-lg">
+      {/* Arrow — topmost layer */}
+      <div className="absolute inset-0 flex items-center justify-center">
         <svg
           width="18"
           height="18"
