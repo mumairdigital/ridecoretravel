@@ -4,7 +4,7 @@ import { site } from '@/lib/site'
 
 const footerNav = [
   { label: 'Home', href: '/' },
-  { label: 'All Fixed Fares', href: '/#fares' },
+  { label: 'Airport Transfers', href: '/airport-transfers' },
   { label: 'Fleet', href: '/#fleet' },
   { label: 'About', href: '/#about' },
   { label: 'Book a Transfer', href: '/#booking' },

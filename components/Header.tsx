@@ -96,10 +96,10 @@ export default function Header() {
                 ))}
                 <div className="border-t border-white/8">
                   <Link
-                    href="/#fares"
+                    href="/airport-transfers"
                     className="flex items-center justify-between px-4 py-3 text-xs text-gold hover:bg-white/3 transition-colors font-semibold tracking-wide"
                   >
-                    View All Fares →
+                    All Routes & Fares →
                   </Link>
                 </div>
               </div>
@@ -185,9 +185,9 @@ export default function Header() {
                       <span className="text-grey text-xs">{r.time}</span>
                     </Link>
                   ))}
-                  <Link href="/#fares" onClick={() => setMenuOpen(false)}
+                  <Link href="/airport-transfers" onClick={() => setMenuOpen(false)}
                     className="py-2 text-xs text-gold font-semibold tracking-wide">
-                    All Fixed Fares →
+                    All Routes & Fares →
                   </Link>
                 </div>
               </div>
