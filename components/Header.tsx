@@ -106,13 +106,16 @@ export default function Header() {
             )}
           </div>
 
+          <Link href="/services" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            Services
+          </Link>
           <Link href="/#fleet" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
             Fleet
           </Link>
           <Link href="/#fares" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
             Fares
           </Link>
-          <Link href="/#about" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+          <Link href="/about" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
             About
           </Link>
         </nav>
@@ -192,13 +195,21 @@ export default function Header() {
                 </div>
               </div>
 
+              <Link href="/services" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                Services
+              </Link>
               <Link href="/#fleet" onClick={() => setMenuOpen(false)}
                 className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
                 Fleet
               </Link>
-              <Link href="/#about" onClick={() => setMenuOpen(false)}
+              <Link href="/about" onClick={() => setMenuOpen(false)}
                 className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
                 About
+              </Link>
+              <Link href="/terms" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                Terms & Conditions
               </Link>
             </nav>
 

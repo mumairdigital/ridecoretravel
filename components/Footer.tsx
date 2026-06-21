@@ -4,9 +4,10 @@ import { site } from '@/lib/site'
 
 const footerNav = [
   { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
   { label: 'Airport Transfers', href: '/airport-transfers' },
   { label: 'Fleet', href: '/#fleet' },
-  { label: 'About', href: '/#about' },
+  { label: 'About', href: '/about' },
   { label: 'Book a Transfer', href: '/#booking' },
   { label: 'Terms & Conditions', href: '/terms' },
 ]
