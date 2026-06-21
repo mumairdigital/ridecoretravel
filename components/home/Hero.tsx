@@ -23,16 +23,18 @@ export default function Hero() {
   const [dropoff, setDropoff] = useState('')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
+  const [loading, setLoading] = useState(false)
 
   function handleQuote(e: React.FormEvent) {
     e.preventDefault()
-    const params = new URLSearchParams({ pickup, dropoff, date, time, passengers })
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })
-    // Pre-fill the full booking form below
-    const event = new CustomEvent('prefill-booking', {
+    setLoading(true)
+    window.dispatchEvent(new CustomEvent('prefill-booking', {
       detail: { pickup, dropoff, date, time, passengers },
-    })
-    window.dispatchEvent(event)
+    }))
+    setTimeout(() => {
+      setLoading(false)
+      document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })
+    }, 800)
   }
 
   const today = new Date().toISOString().split('T')[0]
@@ -170,9 +172,17 @@ export default function Hero() {
                 </div>
                 <button
                   type="submit"
-                  className="flex-1 bg-gold text-charcoal font-bold text-sm tracking-wide rounded-sm hover:bg-gold/90 active:scale-[.98] transition-all whitespace-nowrap px-4"
+                  disabled={loading}
+                  className="flex-1 bg-gold text-charcoal font-bold text-sm tracking-wide rounded-sm hover:bg-gold/90 active:scale-[.98] transition-all whitespace-nowrap px-4 flex items-center justify-center gap-2 disabled:opacity-80"
                 >
-                  Get Quote
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeLinecap="round"/>
+                      </svg>
+                      Checking…
+                    </>
+                  ) : 'Get Quote'}
                 </button>
               </div>
             </div>
