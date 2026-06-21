@@ -18,76 +18,51 @@ export default function ScrollToTop() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  // SVG arc maths
   const size = 52
   const strokeW = 2.5
-  const radius = (size - strokeW) / 2
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference - progress * circumference
+  const r = (size - strokeW) / 2
+  const circ = 2 * Math.PI * r
+  const offset = circ - progress * circ
 
   return (
     <button
-      onClick={scrollToTop}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="Scroll to top"
-      style={{ width: size, height: size }}
-      className={`fixed bottom-24 right-5 lg:bottom-8 lg:right-8 z-40 transition-all duration-300 relative ${
+      className={`fixed bottom-24 right-5 lg:bottom-8 lg:right-8 z-40 transition-all duration-300 ${
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
-      {/* Background circle — renders first (bottom layer) */}
-      <div className="absolute inset-0 rounded-full bg-charcoal/90 backdrop-blur-sm shadow-lg" />
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {/* Dark background fill */}
+        <circle cx={size / 2} cy={size / 2} r={size / 2} fill="#0E0E0E" opacity="0.92" />
 
-      {/* Progress ring SVG — on top of background, behind arrow */}
-      <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        className="absolute inset-0 -rotate-90"
-      >
-        {/* Track */}
+        {/* Track ring */}
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
+          cx={size / 2} cy={size / 2} r={r}
           fill="none"
-          stroke="rgba(178,154,117,0.18)"
+          stroke="rgba(178,154,117,0.2)"
           strokeWidth={strokeW}
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
+
         {/* Progress arc */}
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
+          cx={size / 2} cy={size / 2} r={r}
           fill="none"
           stroke="#b29a75"
           strokeWidth={strokeW}
           strokeLinecap="round"
-          strokeDasharray={circumference}
+          strokeDasharray={circ}
           strokeDashoffset={offset}
-          className="transition-all duration-100"
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
-      </svg>
 
-      {/* Arrow — topmost layer */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#b29a75"
-          strokeWidth={2.2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="12" y1="19" x2="12" y2="5" />
-          <polyline points="5 12 12 5 19 12" />
-        </svg>
-      </div>
+        {/* Arrow — upward with shaft */}
+        <g stroke="#b29a75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none">
+          <line x1={size / 2} y1="34" x2={size / 2} y2="18" />
+          <polyline points={`${size / 2 - 6},24 ${size / 2},18 ${size / 2 + 6},24`} />
+        </g>
+      </svg>
     </button>
   )
 }
