@@ -23,8 +23,8 @@ export default function ScrollToTop() {
   }
 
   // SVG arc maths
-  const size = 48
-  const strokeW = 2.5
+  const size = 64
+  const strokeW = 3
   const radius = (size - strokeW) / 2
   const circumference = 2 * Math.PI * radius
   const offset = circumference - progress * circumference
@@ -50,7 +50,7 @@ export default function ScrollToTop() {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="rgba(178,154,117,0.2)"
+          stroke="rgba(178,154,117,0.15)"
           strokeWidth={strokeW}
         />
         {/* Progress arc */}
@@ -69,16 +69,20 @@ export default function ScrollToTop() {
       </svg>
 
       {/* Inner button */}
-      <div className="relative w-12 h-12 rounded-full bg-charcoal/90 backdrop-blur-sm border border-white/10 flex items-center justify-center hover:bg-graphite transition-colors shadow-lg">
+      <div className="relative w-16 h-16 rounded-full bg-charcoal/90 backdrop-blur-sm border border-white/10 flex items-center justify-center hover:bg-graphite transition-colors shadow-xl">
+        {/* Arrow: two lines forming an upward pointing arrow */}
         <svg
-          width="16"
-          height="16"
+          width="22"
+          height="22"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="#F5F3EF"
-          strokeWidth={2.2}
+          stroke="#b29a75"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          <line x1="12" y1="19" x2="12" y2="5" />
+          <polyline points="5 12 12 5 19 12" />
         </svg>
       </div>
     </button>
