@@ -1,11 +1,11 @@
 const airports = [
-  { label: 'Leeds Bradford Airport', href: '#fares' },
-  { label: 'Manchester Airport', href: '#fares' },
-  { label: 'Liverpool Airport', href: '#fares' },
-  { label: 'London Heathrow', href: '#fares' },
-  { label: 'London Gatwick', href: '#' },
-  { label: 'Birmingham Airport', href: '#' },
-  { label: 'Edinburgh Airport', href: '#' },
+  { label: 'Leeds Bradford Airport', href: '/airport-transfers/leeds-bradford-airport-taxi' },
+  { label: 'Manchester Airport', href: '/airport-transfers/leeds-to-manchester-airport' },
+  { label: 'Liverpool Airport', href: '/airport-transfers/leeds-to-liverpool-airport' },
+  { label: 'London Heathrow', href: '/airport-transfers/leeds-to-heathrow' },
+  { label: 'London Gatwick', href: '#booking' },
+  { label: 'Birmingham Airport', href: '#booking' },
+  { label: 'Edinburgh Airport', href: '#booking' },
   { label: 'Any UK Airport', href: '#booking' },
 ]
 

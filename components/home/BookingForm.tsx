@@ -31,8 +31,8 @@ const empty: Fields = {
   pickup: '', dropoff: '', date: '', time: '',
 }
 
-export default function BookingForm() {
-  const [fields, setFields] = useState<Fields>(empty)
+export default function BookingForm({ defaultDropoff }: { defaultDropoff?: string } = {}) {
+  const [fields, setFields] = useState<Fields>({ ...empty, dropoff: defaultDropoff ?? '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
 
   // Receive pre-fill from hero widget
