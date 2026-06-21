@@ -23,8 +23,8 @@ export default function ScrollToTop() {
   }
 
   // SVG arc maths
-  const size = 64
-  const strokeW = 3
+  const size = 52
+  const strokeW = 2.5
   const radius = (size - strokeW) / 2
   const circumference = 2 * Math.PI * radius
   const offset = circumference - progress * circumference
@@ -33,11 +33,12 @@ export default function ScrollToTop() {
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className={`fixed bottom-24 right-5 lg:bottom-8 lg:right-8 z-40 transition-all duration-300 ${
+      style={{ width: size, height: size }}
+      className={`fixed bottom-24 right-5 lg:bottom-8 lg:right-8 z-40 transition-all duration-300 relative ${
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
-      {/* Outer ring SVG */}
+      {/* Progress ring SVG — sits on top, anchored by button size */}
       <svg
         width={size}
         height={size}
@@ -50,7 +51,7 @@ export default function ScrollToTop() {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="rgba(178,154,117,0.15)"
+          stroke="rgba(178,154,117,0.18)"
           strokeWidth={strokeW}
         />
         {/* Progress arc */}
@@ -68,16 +69,15 @@ export default function ScrollToTop() {
         />
       </svg>
 
-      {/* Inner button */}
-      <div className="relative w-16 h-16 rounded-full bg-charcoal/90 backdrop-blur-sm border border-white/10 flex items-center justify-center hover:bg-graphite transition-colors shadow-xl">
-        {/* Arrow: two lines forming an upward pointing arrow */}
+      {/* Inner circle */}
+      <div className="absolute inset-0 rounded-full bg-charcoal/90 backdrop-blur-sm flex items-center justify-center hover:bg-graphite transition-colors shadow-lg">
         <svg
-          width="22"
-          height="22"
+          width="18"
+          height="18"
           fill="none"
           viewBox="0 0 24 24"
           stroke="#b29a75"
-          strokeWidth={2}
+          strokeWidth={2.2}
           strokeLinecap="round"
           strokeLinejoin="round"
         >
