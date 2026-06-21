@@ -188,6 +188,24 @@ export default function Hero() {
           </div>
         </form>
 
+        {/* Route quick-links */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {[
+            { label: 'Leeds Bradford Airport', href: '/airport-transfers/leeds-bradford-airport-taxi' },
+            { label: 'Manchester Airport',     href: '/airport-transfers/leeds-to-manchester-airport' },
+            { label: 'Liverpool Airport',      href: '/airport-transfers/leeds-to-liverpool-airport' },
+            { label: 'London Heathrow',        href: '/airport-transfers/leeds-to-heathrow' },
+          ].map((r) => (
+            <a
+              key={r.href}
+              href={r.href}
+              className="text-[11px] text-cream/50 hover:text-gold transition-colors border border-white/10 hover:border-gold/30 px-3 py-1.5 rounded-sm tracking-wide"
+            >
+              {r.label}
+            </a>
+          ))}
+        </div>
+
         {/* Ghost call CTA below widget */}
         <div className="mt-4 flex items-center gap-4">
           <a

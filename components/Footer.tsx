@@ -2,13 +2,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { site } from '@/lib/site'
 
-const footerLinks = [
+const footerNav = [
   { label: 'Home', href: '/' },
-  { label: 'Airport Transfers', href: '#fares' },
-  { label: 'Fleet', href: '#fleet' },
-  { label: 'Fares', href: '#fares' },
-  { label: 'About', href: '#about' },
+  { label: 'All Fixed Fares', href: '/#fares' },
+  { label: 'Fleet', href: '/#fleet' },
+  { label: 'About', href: '/#about' },
+  { label: 'Book a Transfer', href: '/#booking' },
   { label: 'Terms & Conditions', href: '/terms' },
+]
+
+const footerRoutes = [
+  { label: 'Leeds Bradford Airport', href: '/airport-transfers/leeds-bradford-airport-taxi' },
+  { label: 'Manchester Airport',     href: '/airport-transfers/leeds-to-manchester-airport' },
+  { label: 'Liverpool Airport',      href: '/airport-transfers/leeds-to-liverpool-airport' },
+  { label: 'London Heathrow',        href: '/airport-transfers/leeds-to-heathrow' },
 ]
 
 export default function Footer() {
@@ -48,19 +55,29 @@ export default function Footer() {
           </div>
 
           {/* Col 3: Links */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-cream text-xs font-semibold tracking-widest uppercase">Quick Links</h3>
-            <nav className="flex flex-col gap-2.5">
-              {footerLinks.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  className="text-grey text-sm hover:text-gold transition-colors"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </nav>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
+              <h3 className="text-cream text-xs font-semibold tracking-widest uppercase">Routes</h3>
+              <nav className="flex flex-col gap-2">
+                {footerRoutes.map((l) => (
+                  <Link key={l.label} href={l.href}
+                    className="text-grey text-sm hover:text-gold transition-colors">
+                    {l.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="flex flex-col gap-3">
+              <h3 className="text-cream text-xs font-semibold tracking-widest uppercase">Quick Links</h3>
+              <nav className="flex flex-col gap-2">
+                {footerNav.map((l) => (
+                  <Link key={l.label} href={l.href}
+                    className="text-grey text-sm hover:text-gold transition-colors">
+                    {l.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
           </div>
 
           {/* Col 4: Hours + Socials */}

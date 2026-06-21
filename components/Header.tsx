@@ -1,21 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { site } from '@/lib/site'
 
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Airport Transfers', href: '#fares' },
-  { label: 'Fleet', href: '#fleet' },
-  { label: 'Fares', href: '#fares' },
-  { label: 'About', href: '#about' },
+const routeLinks = [
+  { label: 'Leeds Bradford Airport', href: '/airport-transfers/leeds-bradford-airport-taxi', time: '20–30 min' },
+  { label: 'Manchester Airport',      href: '/airport-transfers/leeds-to-manchester-airport', time: '~1 hr 10 min' },
+  { label: 'Liverpool Airport',       href: '/airport-transfers/leeds-to-liverpool-airport',  time: '~1 hr 30 min' },
+  { label: 'London Heathrow',         href: '/airport-transfers/leeds-to-heathrow',           time: '~3 hr 30 min' },
 ]
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+  const [menuOpen, setMenuOpen]     = useState(false)
+  const [dropOpen, setDropOpen]     = useState(false)
+  const dropRef                     = useRef<HTMLDivElement>(null)
+  const pathname                    = usePathname()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
@@ -23,35 +26,95 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  // close dropdown on outside click
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) setDropOpen(false)
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [])
+
+  // close everything on route change
+  useEffect(() => { setMenuOpen(false); setDropOpen(false) }, [pathname])
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 bg-charcoal ${
         scrolled ? 'shadow-[0_2px_20px_rgba(0,0,0,0.6)]' : ''
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image
             src="/images/brand/ridecore-travel-logo.svg"
             alt="Ridecore Travel logo"
-            width={180}
-            height={52}
+            width={170}
+            height={48}
             priority
           />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
-          {navLinks.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors duration-200"
+        <nav className="hidden lg:flex items-center gap-6">
+          <Link href="/" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            Home
+          </Link>
+
+          {/* Airport Transfers dropdown */}
+          <div className="relative" ref={dropRef}>
+            <button
+              onClick={() => setDropOpen((v) => !v)}
+              className="flex items-center gap-1 text-sm tracking-wide text-cream/80 hover:text-gold transition-colors"
+              aria-expanded={dropOpen}
             >
-              {l.label}
-            </a>
-          ))}
+              Airport Transfers
+              <svg
+                width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}
+                className={`transition-transform duration-200 ${dropOpen ? 'rotate-180' : ''}`}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {dropOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-graphite border border-white/10 rounded-sm shadow-2xl overflow-hidden">
+                <div className="px-4 py-2 border-b border-white/8">
+                  <span className="text-gold text-[10px] font-semibold tracking-widest uppercase">Routes from Leeds</span>
+                </div>
+                {routeLinks.map((r) => (
+                  <Link
+                    key={r.href}
+                    href={r.href}
+                    className="flex items-center justify-between px-4 py-3 text-sm text-cream/80 hover:text-gold hover:bg-white/3 transition-colors"
+                  >
+                    <span>{r.label}</span>
+                    <span className="text-grey text-xs">{r.time}</span>
+                  </Link>
+                ))}
+                <div className="border-t border-white/8">
+                  <Link
+                    href="/#fares"
+                    className="flex items-center justify-between px-4 py-3 text-xs text-gold hover:bg-white/3 transition-colors font-semibold tracking-wide"
+                  >
+                    View All Fares →
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link href="/#fleet" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            Fleet
+          </Link>
+          <Link href="/#fares" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            Fares
+          </Link>
+          <Link href="/#about" className="text-sm tracking-wide text-cream/80 hover:text-gold transition-colors">
+            About
+          </Link>
         </nav>
 
         {/* Desktop right */}
@@ -66,12 +129,12 @@ export default function Header() {
               24/7
             </span>
           </a>
-          <a
-            href="#booking"
+          <Link
+            href="/#booking"
             className="bg-gold text-charcoal text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-gold/90 transition-colors"
           >
             Get a Quote
-          </a>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -87,12 +150,9 @@ export default function Header() {
       {/* Mobile drawer */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div
-            className="flex-1 bg-black/60"
-            onClick={() => setMenuOpen(false)}
-          />
-          <div className="w-72 bg-charcoal flex flex-col p-8 gap-6 shadow-2xl">
-            <div className="flex justify-between items-center">
+          <div className="flex-1 bg-black/60" onClick={() => setMenuOpen(false)} />
+          <div className="w-72 bg-charcoal flex flex-col overflow-y-auto shadow-2xl">
+            <div className="flex justify-between items-center p-6 border-b border-white/10">
               <Image
                 src="/images/brand/ridecore-travel-logo.svg"
                 alt="Ridecore Travel logo"
@@ -103,42 +163,58 @@ export default function Header() {
                 <CloseIcon />
               </button>
             </div>
-            <nav className="flex flex-col gap-5 mt-2">
-              {navLinks.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-base text-cream/80 hover:text-gold transition-colors tracking-wide"
-                >
-                  {l.label}
-                </a>
-              ))}
+
+            <nav className="flex flex-col px-6 py-4">
+              <Link href="/" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                Home
+              </Link>
+
+              {/* Routes group */}
+              <div className="py-3.5 border-b border-white/6">
+                <p className="text-gold text-[10px] font-semibold tracking-widest uppercase mb-3">Airport Transfers</p>
+                <div className="flex flex-col gap-1">
+                  {routeLinks.map((r) => (
+                    <Link
+                      key={r.href}
+                      href={r.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between py-2 text-sm text-cream/70 hover:text-gold transition-colors"
+                    >
+                      <span>{r.label}</span>
+                      <span className="text-grey text-xs">{r.time}</span>
+                    </Link>
+                  ))}
+                  <Link href="/#fares" onClick={() => setMenuOpen(false)}
+                    className="py-2 text-xs text-gold font-semibold tracking-wide">
+                    All Fixed Fares →
+                  </Link>
+                </div>
+              </div>
+
+              <Link href="/#fleet" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                Fleet
+              </Link>
+              <Link href="/#about" onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
+                About
+              </Link>
             </nav>
-            <div className="border-t border-white/10 pt-6 flex flex-col gap-4">
-              <a
-                href={`tel:${site.phoneTel}`}
-                className="flex items-center gap-3 text-cream text-sm font-medium"
-              >
-                <PhoneIcon />
-                {site.phone}
+
+            <div className="px-6 py-5 flex flex-col gap-3 mt-auto border-t border-white/10">
+              <a href={`tel:${site.phoneTel}`}
+                className="flex items-center gap-3 text-cream text-sm font-medium">
+                <PhoneIcon />{site.phone}
               </a>
-              <a
-                href={site.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-cream text-sm font-medium"
-              >
-                <WhatsAppIcon />
-                WhatsApp
+              <a href={site.whatsapp} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 text-cream text-sm font-medium">
+                <WhatsAppIcon />WhatsApp
               </a>
-              <a
-                href="#booking"
-                onClick={() => setMenuOpen(false)}
-                className="bg-gold text-charcoal text-sm font-semibold px-5 py-3 rounded-sm text-center tracking-wide hover:bg-gold/90 transition-colors"
-              >
+              <Link href="/#booking" onClick={() => setMenuOpen(false)}
+                className="bg-gold text-charcoal text-sm font-semibold px-5 py-3 rounded-sm text-center tracking-wide hover:bg-gold/90 transition-colors">
                 Get a Quote
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -154,7 +230,6 @@ function PhoneIcon() {
     </svg>
   )
 }
-
 function WhatsAppIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -162,7 +237,6 @@ function WhatsAppIcon() {
     </svg>
   )
 }
-
 function HamburgerIcon() {
   return (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -170,7 +244,6 @@ function HamburgerIcon() {
     </svg>
   )
 }
-
 function CloseIcon() {
   return (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
