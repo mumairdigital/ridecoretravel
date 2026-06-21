@@ -153,91 +153,128 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 flex">
-          <div className="flex-1 bg-black/60" onClick={() => setMenuOpen(false)} />
-          <div className="w-72 bg-charcoal flex flex-col overflow-y-auto shadow-2xl">
-            <div className="flex justify-between items-center p-6 border-b border-white/10">
-              <Image
-                src="/images/brand/ridecore-travel-logo.svg"
-                alt="Ridecore Travel logo"
-                width={140}
-                height={40}
-              />
-              <button onClick={() => setMenuOpen(false)} className="text-cream p-1">
-                <CloseIcon />
-              </button>
-            </div>
+      {/* Mobile drawer — full screen overlay */}
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${menuOpen ? 'visible' : 'invisible'}`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
+          onClick={() => setMenuOpen(false)}
+        />
 
-            <nav className="flex flex-col px-6 py-4">
-              <Link href="/" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                Home
-              </Link>
+        {/* Panel — slides in from right */}
+        <div
+          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-charcoal flex flex-col shadow-2xl transition-transform duration-300 ease-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-white/8">
+            <Image
+              src="/images/brand/ridecore-travel-logo.svg"
+              alt="Ridecore Travel logo"
+              width={140}
+              height={40}
+            />
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-cream/70 hover:text-gold hover:border-gold/30 transition-colors"
+              aria-label="Close menu"
+            >
+              <CloseIcon />
+            </button>
+          </div>
 
-              {/* Routes group */}
-              <div className="py-3.5 border-b border-white/6">
-                <p className="text-gold text-[10px] font-semibold tracking-widest uppercase mb-3">Airport Transfers</p>
-                <div className="flex flex-col gap-1">
-                  {routeLinks.map((r) => (
-                    <Link
-                      key={r.href}
-                      href={r.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between py-2 text-sm text-cream/70 hover:text-gold transition-colors"
-                    >
-                      <span>{r.label}</span>
-                      <span className="text-grey text-xs">{r.time}</span>
-                    </Link>
-                  ))}
-                  <Link href="/airport-transfers" onClick={() => setMenuOpen(false)}
-                    className="py-2 text-xs text-gold font-semibold tracking-wide">
-                    All Routes & Fares →
+          {/* Nav links */}
+          <nav className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1">
+
+            <NavItem href="/" onClick={() => setMenuOpen(false)}>Home</NavItem>
+            <NavItem href="/services" onClick={() => setMenuOpen(false)}>Services</NavItem>
+            <NavItem href="/#fleet" onClick={() => setMenuOpen(false)}>Fleet</NavItem>
+            <NavItem href="/#fares" onClick={() => setMenuOpen(false)}>Fares</NavItem>
+            <NavItem href="/blog" onClick={() => setMenuOpen(false)}>Blog</NavItem>
+            <NavItem href="/about-us" onClick={() => setMenuOpen(false)}>About Us</NavItem>
+
+            {/* Airport Transfers group */}
+            <div className="mt-4 mb-1">
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-gold/70 px-1 mb-2">
+                Airport Transfers
+              </p>
+              <div className="bg-graphite rounded-sm border border-white/6 overflow-hidden">
+                {routeLinks.map((r, i) => (
+                  <Link
+                    key={r.href}
+                    href={r.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`flex items-center justify-between px-4 py-3.5 text-sm text-cream/80 hover:text-gold hover:bg-white/4 transition-colors ${i < routeLinks.length - 1 ? 'border-b border-white/6' : ''}`}
+                  >
+                    <span>{r.label}</span>
+                    <span className="text-grey text-xs">{r.time}</span>
                   </Link>
-                </div>
+                ))}
+                <Link
+                  href="/airport-transfers"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 text-xs text-gold font-semibold tracking-wide border-t border-white/8 hover:bg-white/4 transition-colors"
+                >
+                  All Routes & Fares
+                  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
               </div>
+            </div>
+          </nav>
 
-              <Link href="/services" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                Services
-              </Link>
-              <Link href="/#fleet" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                Fleet
-              </Link>
-              <Link href="/blog" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                Blog
-              </Link>
-              <Link href="/about-us" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                About
-              </Link>
-              <Link href="/terms-conditions" onClick={() => setMenuOpen(false)}
-                className="py-3.5 text-base text-cream/80 hover:text-gold transition-colors border-b border-white/6">
-                Terms & Conditions
-              </Link>
-            </nav>
-
-            <div className="px-6 py-5 flex flex-col gap-3 mt-auto border-t border-white/10">
-              <a href={`tel:${site.phoneTel}`}
-                className="flex items-center gap-3 text-cream text-sm font-medium">
+          {/* Bottom CTA area */}
+          <div className="px-6 py-5 border-t border-white/8 flex flex-col gap-3">
+            {/* Contact row */}
+            <div className="flex gap-3">
+              <a
+                href={`tel:${site.phoneTel}`}
+                className="flex-1 flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-cream text-sm font-medium py-3 rounded-sm hover:border-gold/30 hover:text-gold transition-colors"
+              >
                 <PhoneIcon />{site.phone}
               </a>
-              <a href={site.whatsapp} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-3 text-cream text-sm font-medium">
-                <WhatsAppIcon />WhatsApp
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 flex items-center justify-center bg-white/5 border border-white/10 text-cream rounded-sm hover:border-gold/30 hover:text-gold transition-colors"
+                aria-label="WhatsApp"
+              >
+                <WhatsAppIcon />
               </a>
-              <Link href="/#booking" onClick={() => setMenuOpen(false)}
-                className="bg-gold text-charcoal text-sm font-semibold px-5 py-3 rounded-sm text-center tracking-wide hover:bg-gold/90 transition-colors">
-                Get a Quote
-              </Link>
             </div>
+            {/* Primary CTA */}
+            <Link
+              href="/#booking"
+              onClick={() => setMenuOpen(false)}
+              className="bg-gold text-charcoal font-bold text-sm tracking-wide py-3.5 rounded-sm text-center hover:bg-gold/90 transition-colors"
+            >
+              Get a Quote
+            </Link>
+            <p className="text-grey text-[11px] text-center">
+              Licensed by Leeds City Council · 24/7
+            </p>
           </div>
         </div>
-      )}
+      </div>
     </header>
+  )
+}
+
+function NavItem({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="flex items-center justify-between px-1 py-3 text-base font-medium text-cream/80 hover:text-gold border-b border-white/6 transition-colors group"
+    >
+      {children}
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} className="text-white/20 group-hover:text-gold/50 transition-colors">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    </Link>
   )
 }
 
