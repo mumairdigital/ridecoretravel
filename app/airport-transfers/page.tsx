@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { routePages } from '@/lib/routes'
 import { routes as prices } from '@/lib/prices'
@@ -42,15 +43,29 @@ export default function AirportTransfersPage() {
         </div>
       </div>
 
-      {/* Hero band */}
-      <section className="bg-graphite py-20 border-b border-white/8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero */}
+      <section className="relative min-h-[75vh] flex items-end overflow-hidden">
+        <Image
+          src="/images/routes/airport-transfers-hero.webp"
+          alt="Premium airport transfer from Leeds — Mercedes Vito on motorway at dusk"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-16 pt-32">
           <div className="max-w-2xl">
-            <span className="text-gold text-xs font-semibold tracking-widest uppercase">From Leeds · 24/7</span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cream tracking-tight mt-3 mb-4">
+            <div className="flex items-center gap-2 mb-5">
+              <span className="w-6 h-px bg-gold" />
+              <span className="text-gold text-xs font-semibold tracking-widest uppercase">From Leeds · 24/7</span>
+            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cream tracking-tight leading-[1.1] mb-4">
               Airport Transfers from Leeds
             </h1>
-            <p className="text-grey text-lg leading-relaxed mb-8">
+            <p className="text-cream/70 text-lg leading-relaxed mb-8">
               Fixed-price transfers to all major UK airports in our premium 8-seater Mercedes-Benz Vito Tourer.
               Licensed by Leeds City Council. Available 24 hours, 7 days a week.
             </p>
@@ -59,17 +74,20 @@ export default function AirportTransfersPage() {
                 href={site.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gold text-charcoal font-bold text-sm px-6 py-3 rounded-sm tracking-wide hover:bg-gold/90 transition-colors"
+                className="bg-gold text-charcoal font-bold text-sm px-7 py-4 rounded-sm tracking-wide hover:bg-gold/90 transition-colors"
               >
                 Book via WhatsApp
               </a>
               <a
                 href={`tel:${site.phoneTel}`}
-                className="border border-white/20 text-cream font-semibold text-sm px-6 py-3 rounded-sm tracking-wide hover:border-gold/40 transition-colors"
+                className="border border-cream/40 text-cream font-semibold text-sm px-7 py-4 rounded-sm tracking-wide hover:border-cream hover:bg-cream/5 transition-colors"
               >
                 Call {site.phone}
               </a>
             </div>
+            <p className="mt-5 text-cream/40 text-xs tracking-wide">
+              Licensed by Leeds City Council · PHV Licence 25232 · Company No. 16758874
+            </p>
           </div>
         </div>
       </section>
