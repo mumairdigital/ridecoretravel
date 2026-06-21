@@ -7,9 +7,9 @@ const footerNav = [
   { label: 'Services', href: '/services' },
   { label: 'Airport Transfers', href: '/airport-transfers' },
   { label: 'Fleet', href: '/#fleet' },
-  { label: 'About', href: '/about' },
+  { label: 'About', href: '/about-us' },
   { label: 'Book a Transfer', href: '/#booking' },
-  { label: 'Terms & Conditions', href: '/terms' },
+  { label: 'Terms & Conditions', href: '/terms-conditions' },
 ]
 
 const footerRoutes = [
