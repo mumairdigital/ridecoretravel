@@ -24,11 +24,15 @@ interface Fields {
   dropoff: string
   date: string
   time: string
+  returnJourney: boolean
+  returnDate: string
+  returnTime: string
 }
 
 const empty: Fields = {
   name: '', email: '', phone: '', passengers: '1',
   pickup: '', dropoff: '', date: '', time: '',
+  returnJourney: false, returnDate: '', returnTime: '',
 }
 
 export default function BookingForm({ defaultDropoff }: { defaultDropoff?: string } = {}) {
@@ -172,6 +176,52 @@ export default function BookingForm({ defaultDropoff }: { defaultDropoff?: strin
                     onChange={set('time')}
                     required
                   />
+
+                  {/* Return journey toggle */}
+                  <div className="sm:col-span-2">
+                    <label className="flex items-center gap-3 cursor-pointer select-none group">
+                      <button
+                        type="button"
+                        role="switch"
+                        aria-checked={fields.returnJourney}
+                        onClick={() => setFields(prev => ({ ...prev, returnJourney: !prev.returnJourney, returnDate: '', returnTime: '' }))}
+                        className={`relative w-10 h-5 rounded-full border transition-all duration-200 flex-shrink-0 ${
+                          fields.returnJourney ? 'bg-gold border-gold' : 'bg-white/8 border-white/15'
+                        }`}
+                      >
+                        <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform duration-200 ${fields.returnJourney ? 'translate-x-5' : ''}`} />
+                      </button>
+                      <span className="text-cream/80 text-sm font-medium">Add return journey</span>
+                      {fields.returnJourney && (
+                        <span className="text-gold text-xs font-semibold tracking-wide ml-auto">Return details below ↓</span>
+                      )}
+                    </label>
+                  </div>
+
+                  {/* Return date / time — shown when toggle on */}
+                  {fields.returnJourney && (
+                    <>
+                      <PremiumInput
+                        label="Return date"
+                        icon={<CalIcon />}
+                        name="returnDate"
+                        type="date"
+                        value={fields.returnDate}
+                        onChange={e => setFields(prev => ({ ...prev, returnDate: e.target.value }))}
+                        min={fields.date || today}
+                        required={fields.returnJourney}
+                      />
+                      <PremiumInput
+                        label="Return time"
+                        icon={<TimeIcon />}
+                        name="returnTime"
+                        type="time"
+                        value={fields.returnTime}
+                        onChange={e => setFields(prev => ({ ...prev, returnTime: e.target.value }))}
+                        required={fields.returnJourney}
+                      />
+                    </>
+                  )}
 
                   {/* Divider */}
                   <div className="sm:col-span-2 border-t border-white/6 -mx-8 px-8 pt-5">

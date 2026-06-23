@@ -152,8 +152,8 @@ export default function AboutPage() {
               <h2 className="text-2xl font-bold text-cream tracking-tight">One Vehicle. Done Right.</h2>
               <p className="text-grey text-sm leading-relaxed">
                 We operate a single, carefully chosen vehicle — the Mercedes-Benz Vito Tourer. By focusing on one
-                premium 8-seater rather than a large fleet, we ensure every journey meets the same high standard.
-                The vehicle is kept immaculately clean and maintained to the highest level.
+                we ensure every journey meets the same high standard.
+                Our vehicles are kept immaculately clean and maintained to the highest level.
               </p>
               <Link
                 href="/services"

@@ -15,11 +15,11 @@ export default function Fleet() {
           <span className="text-gold text-xs font-semibold tracking-widest uppercase">The Fleet</span>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-cream tracking-tight text-center mb-4">
-          The Mercedes-Benz Vito — 8 Seats
+          Our Fleet — Clean, Spacious &amp; Premium
         </h2>
         <p className="text-grey text-center mb-14 max-w-2xl mx-auto leading-relaxed">
-          Our premium 8-seater Mercedes-Benz Vito Tourer offers exceptional space for families, business groups,
-          and sports teams — with ample luggage capacity for everyone's bags.
+          Our vehicles include premium Mercedes-Benz people carriers — spacious, climate-controlled, and immaculately
+          presented for families, business groups, and sports teams with all their luggage.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
